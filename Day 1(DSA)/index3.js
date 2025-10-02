@@ -18,4 +18,4 @@ function rotateVowel(s) {
   return arr.join("");
 }
 
-console.log(rotateVowel("IceCreAm"));
+console.log(rotateVowel("ICecreAm"));

@@ -2,13 +2,13 @@ import React from "react";
 
 function FourthSection(){
     return(
-        <div className="container mt-5 mb-5">
-      <div className="row p-3">
-        <div className="col-6 p-3 mt-5">
-          <h3 className="fw-bold fs-1">
+        <div className="main-container-four">
+      <div className="content">
+        <div className="left-section-four">
+          <h3>
             Improve work flow
           </h3>
-          <p className="text-muted mt-3">
+          <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam
             atque natus soluta, <br />a veniam culpa impedit magni quisquam
             optio laborum quo quod non architecto <br />
@@ -18,7 +18,7 @@ function FourthSection(){
             Check the tools →
           </p>
         </div>
-        <div className="col-6 p-">
+        <div className="right-section-four">
           <img src="media/images/Fourth.png" />
         </div>
       </div>

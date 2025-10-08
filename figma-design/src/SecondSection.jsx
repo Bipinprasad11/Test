@@ -2,32 +2,33 @@ import React from "react";
 
 function SecondSection() {
   return (
-    <div className="container mt-3 mb-3">
-      <div className="row p-3">
-        <div className="col-2">
-          <img src="media/images/one.png"/>
+    <div className="main-container-two">
+      <div className="content">
+        <div className="left-section-two">
+          <div className="img-box small">
+          <img src="media/images/one.png" alt="one"/>
         </div>
-        <div className="col-2">
-          <img src="media/images/two.png"/>
+        <div className="img-box small">
+          <img src="media/images/two.png" alt="two"/>
         </div>
-        <div className="col-2 mt-5">
-          <img src="media/images/three.png"/>
+        <div className="img-box medium">
+          <img src="media/images/three.png" alt="three"/>
         </div>
-        <div className="col-6 p-3 mt-5">
-          <h3 className="fw-bold fs-1">
+        </div>
+
+        <div className="right-section-two">
+          <h3>
             Enjoy your time,
             <br />
             working
           </h3>
-          <p className="text-muted mt-3">
+          <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam
-            atque natus soluta, <br />a veniam culpa impedit magni quisquam
-            optio laborum quo quod non architecto <br />
-            amet repellat quaerat quidem officiis voluptatem.
+            atque natus soluta, a veniam culpa impedit magni quisquam optio
+            laborum quo quod non architecto amet repellat quaerat quidem
+            officiis voluptatem.
           </p>
-          <p className="mt-4" style={{ color: "#0073e6" }}>
-            See how it help others →
-          </p>
+          <p style={{ color: "#0073e6" }}>See how it helps others →</p>
         </div>
       </div>
     </div>

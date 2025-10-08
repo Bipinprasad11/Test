@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
+
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">magnifico</div>
 
-      <ul className="navbar-menu">
+      <div className={`navbar-menu ${isOpen ? "open" : ""}`}>
         <li>
           Products <span className="arrow">▼</span>
         </li>
@@ -19,7 +22,7 @@ function Navbar() {
           Help Center <span className="arrow">▼</span>
         </li>
         <li>Pricing</li>
-      </ul>
+      </div>
 
       <div className="navbar-right">
         <a href="#" className="login">
@@ -28,6 +31,15 @@ function Navbar() {
         <button className="signup-btn">
           Sign Up Free <span className="arrow-right">→</span>
         </button>
+      </div>
+
+      <div
+        className={`hamburger ${isOpen ? "active" : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </nav>
   );

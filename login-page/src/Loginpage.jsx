@@ -10,6 +10,7 @@ function Loginpage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setError("");
 
     const storedUser = localStorage.getItem("userData");
     if (!storedUser) {
@@ -17,14 +18,30 @@ function Loginpage() {
       return;
     }
 
-    const parsedUser = JSON.parse(storedUser);
+    try {
+      const parsedUsers = JSON.parse(storedUser);
 
-    if (parsedUser.email === email && parsedUser.password === password) {
-      Cookies.set("isLoggedIn", "true", { expires: 1 });
-      Cookies.set("username", parsedUser.firstname, { expires: 1 });
-      navigate("/user");
-    } else {
-      setError("Invalid email or password!");
+      if (!Array.isArray(parsedUsers)) {
+        setError("User data is corrupted. Please sign up again.");
+        return;
+      }
+
+      const foundUser = parsedUsers.find(
+        (user) =>
+          user.email.trim().toLowerCase() === email.trim().toLowerCase() &&
+          user.password === password
+      );
+
+      if (foundUser) {
+        Cookies.set("isLoggedIn", "true", { expires: 1 });
+        Cookies.set("username", foundUser.firstname, { expires: 1 });
+        navigate("/user");
+      } else {
+        setError("Invalid email or password!");
+      }
+    } catch (err) {
+      console.error("Error reading user data:", err);
+      setError("Something went wrong. Please try again.");
     }
   };
 
@@ -38,7 +55,6 @@ function Loginpage() {
           <input
             type="email"
             id="email"
-            name="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -48,7 +64,6 @@ function Loginpage() {
           <input
             type="password"
             id="password"
-            name="password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}

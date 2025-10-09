@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Signup() {
   const navigate = useNavigate();
@@ -32,37 +33,38 @@ function Signup() {
         else if (parsed && typeof parsed === "object") existingUsers = [parsed];
       } catch (err) {
         console.warn("Could not parse userData from localStorage, resetting it.", err);
-        existingUsers = [];
       }
     }
 
-    const emailToCheck = (formData.email || "").trim().toLowerCase();
+    const emailToCheck = formData.email.trim().toLowerCase();
     if (!emailToCheck) {
       setError("Please enter an email.");
       return;
     }
 
     const emailExists = existingUsers.some(
-      (user) => (user?.email || "").trim().toLowerCase() === emailToCheck
+      (user) => user.email.trim().toLowerCase() === emailToCheck
     );
 
     if (emailExists) {
-      setError("Email already exists! Please use a different one or login.");
+      setError("Email already exists! Please login instead.");
       return;
     }
 
     const newUser = {
-      firstname: (formData.firstname || "").trim(),
-      lastname: (formData.lastname || "").trim(),
-      email: (formData.email || "").trim(),
-      password: formData.password || "",
+      firstname: formData.firstname.trim(),
+      lastname: formData.lastname.trim(),
+      email: formData.email.trim(),
+      password: formData.password,
     };
 
     const updatedUsers = [...existingUsers, newUser];
     localStorage.setItem("userData", JSON.stringify(updatedUsers));
 
+    Cookies.set("isLoggedIn", "true", { expires: 1 });
+    Cookies.set("username", newUser.firstname, { expires: 1 });
+
     setFormData({ firstname: "", lastname: "", email: "", password: "" });
-    setError("");
     navigate("/user");
   };
 
@@ -70,7 +72,6 @@ function Signup() {
     <div className="container">
       <div className="container-card">
         <h1>Sign Up</h1>
-
         <form className="signupForm" onSubmit={handleSignup}>
           <label htmlFor="firstname">First Name</label>
           <input
@@ -118,7 +119,7 @@ function Signup() {
         </form>
 
         <div className="login-text">
-          Already have an account? &nbsp;&nbsp;
+          Already have an account? &nbsp;
           <Link to="/login">Login</Link>
         </div>
       </div>
